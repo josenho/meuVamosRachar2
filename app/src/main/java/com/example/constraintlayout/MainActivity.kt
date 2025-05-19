@@ -1,5 +1,8 @@
 package com.example.constraintlayout
 
+import android.content.Intent
+import android.net.Uri
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -51,7 +54,10 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         }
         if(ttsSucess) {
             Log.d ("PDM23", tts.language.toString())
-            tts.speak("Oi Sumido", TextToSpeech.QUEUE_FLUSH, null, null)
+            tts.speak("Openning Youtube...", TextToSpeech.QUEUE_FLUSH, null, null)
+
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com"))
+            startActivity(intent)
         }
 
 
