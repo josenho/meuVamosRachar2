@@ -2,6 +2,7 @@ package com.example.constraintlayout
 
 import android.content.Intent
 import android.net.Uri
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,11 +21,34 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton).apply {
+            setOnClickListener {
+                Intent(Intent.ACTION_SEND).apply{
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, "teste de compartilhamento")
+                }.also { intent ->
+                    startActivity(Intent.createChooser(intent, null))
+                }
+            }
+        }
+
         edtConta = findViewById<EditText>(R.id.edtConta)
         edtConta.addTextChangedListener(this)
         // Initialize TTS engine
         tts = TextToSpeech(this, this)
 
+    }
+
+    private fun compartilharConteudo() {
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Estou compartilhando isso pelo meu app")
+
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, "Compartilhar via")
+        startActivity(shareIntent)
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
