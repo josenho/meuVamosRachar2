@@ -59,11 +59,19 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com"))
             startActivity(intent)
         }
-
-
-
-
     }
+
+    fun clickCompartilhar(view: View){
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "texto que eu quero compartilhar")
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, "Compartilhar via")
+        startActivity(shareIntent)
+    }
+
     override fun onDestroy() {
             // Release TTS engine resources
             tts.stop()
