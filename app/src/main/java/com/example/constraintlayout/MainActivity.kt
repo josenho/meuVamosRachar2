@@ -85,6 +85,12 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         }
     }
 
+    // Função chamada pelo botão (deve ser pública e ter exatamente esta assinatura)
+    fun irParaSegundaTela(view: View) {
+        val intent = Intent(this, SegundaActivity::class.java)
+        startActivity(intent)
+    }
+
     fun clickCompartilhar(view: View){
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
