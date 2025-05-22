@@ -1,6 +1,7 @@
 package com.example.constraintlayout
 
 import android.content.Intent
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -33,6 +34,16 @@ class SegundaActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "digite algo primeiro", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        btnCompartilhar.setOnLongClickListener {
+            val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+            val ringtone = RingtoneManager.getRingtone(applicationContext, alarmSound)
+            ringtone.play()
+
+            Toast.makeText(this, "Alarme ativado", Toast.LENGTH_SHORT).show()
+
+            true
         }
     }
 }
