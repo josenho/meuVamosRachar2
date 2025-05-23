@@ -1,6 +1,7 @@
 package com.example.constraintlayout
 
 import android.content.Intent
+import android.media.RingtoneManager
 import android.net.Uri
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -11,6 +12,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import java.util.*
 
@@ -18,9 +20,28 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
     private lateinit var tts: TextToSpeech
     private lateinit var edtConta: EditText
     private var ttsSucess: Boolean = false;
+    private val REQUEST_CODE_EMERGENCY = 100
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val btnSOS = findViewById<Button>(R.id.btnSOS)
+
+        btnSOS.setOnLongClickListener {
+            playAlarmSound()
+
+            val lastLocation = "Lat: -23.559, Long: -46.6333"
+            val batteryLevel = 75
+
+            val intent = Intent(this, EmergencyActivity::class.java).apply{
+                putExtra("location", lastLocation)
+                putExtra("battery", batteryLevel)
+                putExtra("timestamp", System.currentTimeMillis())
+            }
+
+            startActivityForResult(intent, REQUEST_CODE_EMERGENCY)
+            true
+        }
 
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton).apply {
             setOnClickListener {
@@ -38,6 +59,12 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         // Initialize TTS engine
         tts = TextToSpeech(this, this)
 
+    }
+
+    private fun playAlarmSound() {
+        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        val ringtone = RingtoneManager.getRingtone(this, alarmSound)
+        ringtone.play()
     }
 
     private fun compartilharConteudo() {
