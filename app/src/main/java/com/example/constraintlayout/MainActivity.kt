@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         val btnSOS = findViewById<Button>(R.id.btnSOS)
 
         btnSOS.setOnLongClickListener {
-            playAlarmSound()
 
             val lastLocation = "Lat: -23.559, Long: -46.6333"
             val batteryLevel = 75
@@ -59,12 +58,6 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         // Initialize TTS engine
         tts = TextToSpeech(this, this)
 
-    }
-
-    private fun playAlarmSound() {
-        val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        val ringtone = RingtoneManager.getRingtone(this, alarmSound)
-        ringtone.play()
     }
 
     private fun compartilharConteudo() {
