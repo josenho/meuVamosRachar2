@@ -19,6 +19,9 @@
             android:exported="false"
             android:theme="@style/Theme.ConstraintLayout" />
         <activity
+            android:name=".TerceiraActivity"
+            android:exported="false" />
+        <activity
             android:name=".ShareActivity"
             android:exported="true">
             <intent-filter>
