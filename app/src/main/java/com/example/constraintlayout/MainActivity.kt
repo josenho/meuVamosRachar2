@@ -111,6 +111,11 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         startActivity(intent)
     }
 
+    fun irParaTerceiraTela(view: View){
+        val intent = Intent(this, TerceiraActivity::class.java)
+        startActivity(intent)
+    }
+
     fun clickCompartilhar(view: View){
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
